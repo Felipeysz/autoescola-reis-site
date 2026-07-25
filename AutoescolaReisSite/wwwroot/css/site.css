@@ -278,6 +278,11 @@ section {
     text-anchor: middle;
 }
 
+/* Fallback textual dos waypoints — usado só no mobile, ver bloco responsivo */
+.rota-waypoints-mobile {
+    display: none;
+}
+
 /* ===== Faixa de confiança ===== */
 .confianca-faixa {
     background: #fff;
@@ -687,39 +692,114 @@ section {
 
 /* ===== Responsivo ===== */
 @media (max-width: 768px) {
+
+    /* Header / menu mobile */
+    .site-header-inner {
+        position: relative;
+    }
+
     .site-nav {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-bottom: 3px dashed var(--sinaleira);
+        padding: var(--espaco-md);
+        z-index: 39;
     }
+
+        .site-nav.site-nav--aberto {
+            display: block;
+        }
+
+        .site-nav ul {
+            flex-direction: column;
+            gap: var(--espaco-md);
+        }
 
     .nav-toggle {
         display: flex;
     }
 
-    .curso-grid, .noticia-card {
-        grid-template-columns: 1fr;
+    /* Hero */
+    .home-hero-cta {
+        flex-direction: column;
     }
 
-    .curso-cta {
-        position: static;
+        .home-hero-cta .btn {
+            text-align: center;
+        }
+
+    /* Linha da rota — versão vertical simplificada (substitui o scroll horizontal) */
+    .rota-linha .container {
+        overflow-x: visible;
+        padding-bottom: 0;
     }
 
-    .site-footer-grid {
-        grid-template-columns: 1fr;
+    .rota-linha svg {
+        display: none;
     }
 
+    .rota-linha::before {
+        content: '';
+        display: block;
+        width: 3px;
+        height: 140px;
+        margin: 0 auto;
+        background: repeating-linear-gradient( to bottom, var(--sinaleira) 0, var(--sinaleira) 8px, transparent 8px, transparent 16px );
+    }
+
+    .rota-waypoints-mobile {
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--fonte-mono);
+        font-weight: 600;
+        color: var(--rota-azul-escura);
+        margin-top: var(--espaco-md);
+    }
+
+    /* Faixa de confiança */
     .confianca-lista {
         gap: var(--espaco-lg);
     }
 
-    /* Em vez de sumir com a linha (comportamento anterior), rola horizontalmente.
-       Redesenho vertical completo fica pra LASDWAS-32 (responsividade mobile). */
-    .rota-linha .container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: var(--espaco-sm);
+    /* Curso: CTA sobe pro topo antes do texto */
+    .curso-grid {
+        grid-template-columns: 1fr;
     }
 
-    .rota-linha svg {
-        min-width: 640px;
+    .curso-texto {
+        order: 2;
+    }
+
+    .curso-cta {
+        order: 1;
+        position: static;
+        margin-bottom: var(--espaco-lg);
+    }
+
+    /* Notícias */
+    .noticia-card {
+        grid-template-columns: 1fr;
+    }
+
+    .noticia-card-imagem {
+        height: 180px;
+    }
+
+    /* Footer */
+    .site-footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Timeline de etapas — reduzir recuo em telas pequenas */
+    .curso-box--etapas ol {
+        padding-left: var(--espaco-md);
+    }
+
+    .curso-box--etapas li::before {
+        left: calc(-1 * var(--espaco-md) - 6px);
     }
 }

@@ -158,6 +158,64 @@
             });
         }
 
+        // ===== Página de curso (Detalhe) — entrada sequencial ao carregar =====
+        var cursoHero = document.querySelector(".curso-hero");
+        if (cursoHero) {
+            gsap.from(
+                [
+                    cursoHero.querySelector("h1"),
+                    cursoHero.querySelector(".curso-subtitulo")
+                ].filter(Boolean),
+                {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: "power2.out"
+                }
+            );
+
+            var badgeGrande = document.querySelector(".curso-badge-grande");
+            var introducao = document.querySelector(".curso-introducao");
+            gsap.from([badgeGrande, introducao].filter(Boolean), {
+                opacity: 0,
+                y: 16,
+                duration: 0.5,
+                stagger: 0.1,
+                delay: 0.3,
+                ease: "power2.out"
+            });
+
+            var ctaLateral = document.querySelector(".curso-cta");
+            if (ctaLateral) {
+                gsap.from(ctaLateral, {
+                    opacity: 0,
+                    x: 24,
+                    duration: 0.6,
+                    delay: 0.35,
+                    ease: "power2.out"
+                });
+            }
+        }
+
+        // ===== Boxes da página de curso (categoria, importante, exigências, etapas) =====
+        var cursoBoxes = document.querySelectorAll(".curso-box");
+        if (cursoBoxes.length && typeof ScrollTrigger !== "undefined") {
+            ScrollTrigger.batch(".curso-box", {
+                start: "top 88%",
+                once: true,
+                onEnter: function (batch) {
+                    gsap.from(batch, {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.5,
+                        stagger: 0.12,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        }
+
         // ===== Timeline de etapas (página de curso) — stagger ao entrar na tela =====
         var etapas = document.querySelectorAll(".curso-box--etapas li");
         if (etapas.length && typeof ScrollTrigger !== "undefined") {

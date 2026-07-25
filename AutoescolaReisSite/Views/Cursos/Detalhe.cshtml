@@ -1,95 +1,109 @@
-﻿@* Views/Shared/_Layout.cshtml *@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Autoescola Reis</title>
-    <link rel="icon" type="image/png" href="~/images/favicon.png" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-</head>
-<body>
+﻿@* Views/Cursos/Detalhe.cshtml *@
+@model AutoescolaReisSite.Models.CursoInfo
 
-    <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+@{
+    ViewData["Title"] = Model.Titulo;
+}
 
-    <header class="site-header">
-        <div class="container site-header-inner">
-            <a href="@Url.Action("Index", "Home")" class="site-logo">
-                <img src="~/images/marca-autoescola-reis.png" alt="Autoescola Reis" />
+<section class="curso-hero">
+    <div class="container">
+        <h1>@Model.Titulo</h1>
+        @if (!string.IsNullOrEmpty(Model.Subtitulo))
+        {
+            <p class="curso-subtitulo">@Model.Subtitulo</p>
+        }
+    </div>
+</section>
+
+<section class="curso-conteudo">
+    <div class="container curso-grid">
+
+        <div class="curso-texto">
+
+            <div class="curso-badge-grande">@Model.Codigo</div>
+
+            @if (!string.IsNullOrEmpty(Model.TextoIntroducao))
+            {
+                <p class="curso-introducao">@Model.TextoIntroducao</p>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.CategoriaNome))
+            {
+                <div class="curso-box curso-box--categoria">
+                    <h2>@Model.CategoriaNome</h2>
+                    <p>@Model.CategoriaDescricao</p>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Importante))
+            {
+                <div class="curso-box curso-box--importante">
+                    <h3>IMPORTANTE</h3>
+                    <p>@Model.Importante</p>
+                </div>
+            }
+
+            @if (Model.Exigencias is { Count: > 0 })
+            {
+                <div class="curso-box curso-box--exigencias">
+                    <h3>Exigências</h3>
+                    <ul>
+                        @foreach (var exigencia in Model.Exigencias)
+                        {
+                            <li>@exigencia</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @* Caso normal: uma única lista de etapas *@
+            @if (Model.Etapas is { Count: > 0 })
+            {
+                <div class="curso-box curso-box--etapas">
+                    <h3>Etapas para quem deseja fazer este curso</h3>
+                    <ol>
+                        @foreach (var etapa in Model.Etapas)
+                        {
+                            <li>@etapa</li>
+                        }
+                    </ol>
+                </div>
+            }
+
+            @* Caso especial: Adição de Categoria, com etapas separadas por grupo (A / B) *@
+            @if (Model.EtapasPorGrupo is { Count: > 0 })
+            {
+                foreach (var grupo in Model.EtapasPorGrupo)
+                {
+                    <div class="curso-box curso-box--etapas">
+                        <h3>@grupo.Key</h3>
+                        <ol>
+                            @foreach (var etapa in grupo.Value)
+                            {
+                                <li>@etapa</li>
+                            }
+                        </ol>
+                    </div>
+                }
+            }
+
+        </div>
+
+        <aside class="curso-cta">
+            <ul class="curso-cta-tags">
+                <li>Aulas teóricas 100% online</li>
+                <li>Facilitamos o pagamento</li>
+            </ul>
+
+            <a href="@Url.Action("Index", "Matriculas")" class="btn btn--primario">
+                Matricule-se aqui
             </a>
 
-            <nav class="site-nav" aria-label="Navegação principal">
-                <ul>
-                    <li><a href="@Url.Action("Index", "Home")">Início</a></li>
-                    <li><a href="@Url.Action("Index", "Cursos")">Cursos</a></li>
-                    <li><a href="@Url.Action("Sobre", "Home")">Sobre Nós</a></li>
-                    <li><a href="@Url.Action("Index", "Noticias")">Notícias</a></li>
-                    <li><a href="@Url.Action("Index", "Matriculas")">Matrículas</a></li>
-                </ul>
-            </nav>
+            <p class="curso-cta-whatsapp-label">Informações e Matrículas pelo WhatsApp</p>
+            <a href="https://wa.me/5571982600856" target="_blank" rel="noopener" class="btn btn--whatsapp">
+                Clique Aqui
+            </a>
+        </aside>
 
-            <button type="button" class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-nav">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </header>
-
-    <main id="main-content">
-        @RenderBody()
-    </main>
-
-    <footer class="site-footer">
-        <div class="container site-footer-grid">
-
-            <div class="footer-endereco">
-                <h2>Endereço e Contatos:</h2>
-                <p>
-                    Avenida Tancredo Neves, 274, Torre A, Térreo<br />
-                    Caminho das Árvores, Salvador – Bahia<br />
-                    CEP: 41820-620
-                </p>
-            </div>
-
-            <div class="footer-horarios">
-                <h2>Horários de Funcionamento:</h2>
-                <p>(71) 3450-7775 / 3450-4094 / 3231-8559</p>
-                <p>
-                    <a href="https://wa.me/5571982600856" target="_blank" rel="noopener">
-                        (71) 98260-0856 :: Somente WhatsApp
-                    </a>
-                </p>
-                <p>
-                    <a href="mailto:contato@autoescolareis.com.br">contato@autoescolareis.com.br</a>
-                </p>
-                <p>SEGUNDA À SEXTA | 08h –18h</p>
-                <p>SÁBADOS | 08h –12h</p>
-                <p>DOMINGO | Fechado</p>
-            </div>
-
-            <div class="footer-links">
-                <a href="https://webmail-seguro.com.br/autoescolareis.com.br/" target="_blank" rel="noopener">Webmail</a>
-                <span aria-hidden="true">|</span>
-                <a href="@Url.Action("Politica", "Home")">Política de Privacidade</a>
-            </div>
-
-        </div>
-
-        <div class="container site-footer-bottom">
-            <p>Centro de Formações de Condutores Reis Ltda - ME &nbsp; CNPJ: 04.111.185/0001-62</p>
-            @* TODO: confirmar com o cliente se mantém o crédito da agência anterior ou remove/substitui *@
-            <p><a href="https://www.artworkstudio.com.br/" target="_blank" rel="noopener">Desenvolvido por Artwork Studio ®</a></p>
-        </div>
-    </footer>
-
-    <a href="https://wa.me/5571982600856"
-       target="_blank"
-       rel="noopener"
-       class="whatsapp-float"
-       aria-label="Falar no WhatsApp">
-        <img src="~/images/whatsapp-icon.svg" alt="" aria-hidden="true" />
-    </a>
-
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+    </div>
+</section>

@@ -398,14 +398,44 @@ section {
     margin-bottom: var(--espaco-lg);
 }
 
+.curso-box--categoria {
+    background: rgba(18, 60, 105, 0.04);
+    border-left: 4px solid var(--rota-azul);
+}
+
+    .curso-box--categoria h2 {
+        font-family: var(--fonte-mono);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        font-size: 1.3rem;
+    }
+
 .curso-box--importante {
     border-left: 4px solid var(--sinaleira);
+    background: rgba(244, 166, 61, 0.06);
 }
 
 .curso-box--exigencias ul {
-    list-style: disc;
-    padding-left: var(--espaco-lg);
+    list-style: none;
+    padding-left: 0;
 }
+
+.curso-box--exigencias li {
+    position: relative;
+    padding-left: 1.6rem;
+}
+
+    .curso-box--exigencias li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.55em;
+        width: 8px;
+        height: 8px;
+        background: var(--sinaleira);
+        border-radius: 2px;
+        transform: rotate(45deg);
+    }
 
 .curso-box li {
     margin-bottom: var(--espaco-sm);

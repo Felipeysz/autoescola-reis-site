@@ -1,0 +1,32 @@
+﻿@* Views/Noticias/Detalhes.cshtml *@
+@using AutoescolaReisSite.Models
+@model NoticiaPost
+@{
+    ViewData["Title"] = Model.Titulo;
+}
+
+<article class="noticia-detalhe">
+    <div class="container">
+        <a href="@Url.Action("Index", "Noticias")" class="noticia-voltar">← Voltar para Notícias</a>
+
+        <h1>@Model.Titulo</h1>
+        <time datetime="@Model.DataPublicacao.ToString("yyyy-MM-dd")" class="noticia-data">
+            @Model.DataPublicacao.ToString("d 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("pt-BR"))
+        </time>
+
+        @if (!string.IsNullOrEmpty(Model.ImagemUrl))
+        {
+            <img src="@Model.ImagemUrl" alt="@Model.Titulo" class="noticia-detalhe-imagem" />
+        }
+        else
+        {
+            <div class="img-placeholder noticia-detalhe-imagem" aria-label="Imagem reservada para @Model.Titulo">
+                <span>Imagem em breve</span>
+            </div>
+        }
+
+        <div class="noticia-conteudo">
+            @Html.Raw(Model.ConteudoHtml)
+        </div>
+    </div>
+</article>

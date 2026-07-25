@@ -1,31 +1,627 @@
-html {
-  font-size: 14px;
-}
+/* wwwroot/css/site.css */
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+/* ===== Fontes ===== */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+/* ===== Reset ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: 'Public Sans', system-ui, sans-serif;
+    color: var(--asfalto);
+    background: var(--neblina);
+    line-height: 1.6;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+img {
+    max-width: 100%;
+    display: block;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ===== Design tokens ===== */
+:root {
+    --asfalto: #14181F;
+    --neblina: #F5F6F8;
+    --rota-azul: #123C69;
+    --rota-azul-escura: #0C2A4A;
+    --sinaleira: #F4A63D;
+    --cinza-pista: #6B7280;
+    --verde-aprovado: #2F8F5B;
+    --borda: #E1E4E9;
+    --fonte-display: 'Barlow Condensed', sans-serif;
+    --fonte-corpo: 'Public Sans', sans-serif;
+    --fonte-mono: 'IBM Plex Mono', monospace;
+    --espaco-sm: 0.5rem;
+    --espaco-md: 1rem;
+    --espaco-lg: 2rem;
+    --espaco-xl: 4rem;
+    --raio: 6px;
+    --largura-max: 1160px;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    padding: 0 var(--espaco-md);
+}
+
+/* ===== Tipografia base ===== */
+h1, h2, h3 {
+    font-family: var(--fonte-display);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--rota-azul-escura);
+}
+
+h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    text-transform: uppercase;
+    line-height: 1.05;
+}
+
+h2 {
+    font-size: 1.6rem;
+    margin-bottom: var(--espaco-md);
+}
+
+h3 {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+p {
+    color: var(--cinza-pista);
+    margin-bottom: var(--espaco-md);
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--rota-azul);
+    color: #fff;
+    padding: var(--espaco-sm) var(--espaco-md);
+    z-index: 100;
+}
+
+    .skip-link:focus {
+        left: var(--espaco-md);
+        top: var(--espaco-md);
+    }
+
+/* ===== Header ===== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: #fff;
+    border-bottom: 3px dashed var(--sinaleira);
+}
+
+.site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--espaco-md);
+}
+
+.site-logo img {
+    height: 42px;
+}
+
+.site-nav ul {
+    display: flex;
+    gap: var(--espaco-lg);
+}
+
+.site-nav a {
+    font-family: var(--fonte-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 0.95rem;
+    color: var(--asfalto);
+}
+
+    .site-nav a:hover {
+        color: var(--rota-azul);
+    }
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+}
+
+    .nav-toggle span {
+        width: 24px;
+        height: 2px;
+        background: var(--asfalto);
+    }
+
+/* ===== Seções ===== */
+section {
+    padding: var(--espaco-xl) 0;
+}
+
+.cursos-eyebrow {
+    font-family: var(--fonte-mono);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: var(--sinaleira);
+    margin-bottom: var(--espaco-sm);
+    display: block;
+}
+
+/* ===== Botões ===== */
+.btn {
+    display: inline-block;
+    padding: 0.85rem 1.7rem;
+    border-radius: var(--raio);
+    font-family: var(--fonte-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 0.95rem;
+}
+
+.btn--primario {
+    background: var(--rota-azul);
+    color: #fff;
+}
+
+    .btn--primario:hover {
+        background: var(--rota-azul-escura);
+    }
+
+.btn--whatsapp {
+    background: var(--verde-aprovado);
+    color: #fff;
+}
+
+    .btn--whatsapp:hover {
+        filter: brightness(0.95);
+    }
+
+.curso-cta-whatsapp-label {
+    margin-top: var(--espaco-md);
+    font-weight: 600;
+}
+
+.curso-cta-tags {
+    display: flex;
+    gap: var(--espaco-md);
+    margin-bottom: var(--espaco-md);
+    flex-wrap: wrap;
+}
+
+    .curso-cta-tags li {
+        background: #fff;
+        border: 1px solid var(--borda);
+        padding: var(--espaco-sm) var(--espaco-md);
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--rota-azul-escura);
+    }
+
+/* ===== HERO + Linha da Rota ===== */
+.home-hero {
+    padding-top: var(--espaco-xl);
+    padding-bottom: 0;
+}
+
+.home-hero-texto {
+    max-width: 640px;
+    font-size: 1.05rem;
+}
+
+.home-hero-cta {
+    display: flex;
+    gap: var(--espaco-md);
+    margin-top: var(--espaco-lg);
+}
+
+.rota-linha {
+    padding: var(--espaco-xl) 0;
+}
+
+    .rota-linha svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+.rota-waypoint-label {
+    font-family: var(--fonte-mono);
+    font-weight: 600;
+    font-size: 0.9rem;
+    fill: var(--rota-azul-escura);
+    text-anchor: middle;
+}
+
+/* ===== Cards de curso (badge de categoria) ===== */
+.cursos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--espaco-lg);
+}
+
+.curso-card {
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: var(--espaco-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-md);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+    .curso-card:hover {
+        border-color: var(--sinaleira);
+        transform: translateY(-2px);
+    }
+
+.curso-badge {
+    width: 64px;
+    height: 64px;
+    background: var(--rota-azul);
+    color: #fff;
+    border-radius: var(--raio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fonte-mono);
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.curso-card-titulo {
+    font-size: 1.1rem;
+}
+
+.curso-card-subtitulo {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* ===== Curso detalhe ===== */
+.curso-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--espaco-xl);
+    align-items: start;
+}
+
+.curso-badge-grande {
+    width: 88px;
+    height: 88px;
+    background: var(--rota-azul);
+    color: #fff;
+    border-radius: var(--raio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fonte-mono);
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: var(--espaco-lg);
+}
+
+.curso-box {
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: var(--espaco-lg);
+    margin-bottom: var(--espaco-lg);
+}
+
+.curso-box--importante {
+    border-left: 4px solid var(--sinaleira);
+}
+
+.curso-box--exigencias ul {
+    list-style: disc;
+    padding-left: var(--espaco-lg);
+}
+
+.curso-box li {
+    margin-bottom: var(--espaco-sm);
+    color: var(--cinza-pista);
+}
+
+/* Timeline de etapas — reaproveita o conceito de "linha da rota" */
+.curso-box--etapas ol {
+    position: relative;
+    padding-left: var(--espaco-lg);
+    border-left: 2px dashed var(--sinaleira);
+}
+
+.curso-box--etapas li {
+    position: relative;
+    padding-left: var(--espaco-md);
+    padding-bottom: var(--espaco-lg);
+    color: var(--asfalto);
+}
+
+    .curso-box--etapas li:last-child {
+        padding-bottom: 0;
+    }
+
+    .curso-box--etapas li::before {
+        content: '';
+        position: absolute;
+        left: calc(-1 * var(--espaco-lg) - 6px);
+        top: 4px;
+        width: 12px;
+        height: 12px;
+        background: var(--rota-azul);
+        border: 2px solid #fff;
+        border-radius: 50%;
+    }
+
+.curso-cta {
+    background: var(--asfalto);
+    color: #fff;
+    border-radius: var(--raio);
+    padding: var(--espaco-lg);
+    position: sticky;
+    top: calc(var(--espaco-lg) + 70px);
+}
+
+    .curso-cta p {
+        color: #cfd6e6;
+    }
+
+    .curso-cta .curso-cta-tags li {
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.15);
+        color: #fff;
+    }
+
+/* ===== Notícias ===== */
+.noticias-lista {
+    display: grid;
+    gap: var(--espaco-lg);
+}
+
+.noticia-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--espaco-lg);
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: var(--espaco-md);
+}
+
+.noticia-card-imagem {
+    height: 140px;
+    border-radius: var(--raio);
+}
+
+.noticia-card time {
+    font-family: var(--fonte-mono);
+    font-size: 0.8rem;
+    color: var(--cinza-pista);
+    margin-top: var(--espaco-sm);
+    display: block;
+}
+
+.noticia-voltar {
+    display: inline-block;
+    margin-bottom: var(--espaco-md);
+    color: var(--rota-azul);
+    font-weight: 600;
+}
+
+.noticia-detalhe-imagem {
+    height: 320px;
+    margin: var(--espaco-lg) 0;
+    border-radius: var(--raio);
+}
+
+/* ===== Sobre ===== */
+.sobre-box {
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: var(--espaco-lg);
+    margin-bottom: var(--espaco-md);
+}
+
+    .sobre-box ul {
+        list-style: disc;
+        padding-left: var(--espaco-lg);
+    }
+
+/* ===== Formulário ===== */
+.matriculas-form {
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-md);
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--espaco-sm);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    font-size: 1rem;
+    font-family: var(--fonte-corpo);
+}
+
+.form-erro {
+    color: #d9534f;
+    font-size: 0.85rem;
+}
+
+.alert {
+    padding: var(--espaco-md);
+    border-radius: var(--raio);
+    margin-bottom: var(--espaco-lg);
+}
+
+.alert--sucesso {
+    background: #e6f7ec;
+    color: var(--verde-aprovado);
+    border: 1px solid var(--verde-aprovado);
+}
+
+/* ===== Imagem reservada ===== */
+.img-placeholder {
+    background: #fff;
+    border: 2px dashed var(--borda);
+    border-radius: var(--raio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cinza-pista);
+    font-size: 0.85rem;
+    font-family: var(--fonte-mono);
+    min-height: 200px;
+}
+
+/* ===== Footer — "painel de sinalização" ===== */
+.site-footer {
+    background: var(--asfalto);
+    color: #fff;
+    margin-top: var(--espaco-xl);
+    border-top: 3px dashed var(--sinaleira);
+}
+
+.site-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--espaco-lg);
+    padding: var(--espaco-xl) var(--espaco-md);
+}
+
+.site-footer h2 {
+    font-family: var(--fonte-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sinaleira);
+    margin-bottom: var(--espaco-sm);
+}
+
+.site-footer p, .site-footer a {
+    color: #cfd6e6;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+    .site-footer a:hover {
+        color: #fff;
+    }
+
+.footer-links {
+    display: flex;
+    gap: var(--espaco-sm);
+    align-self: start;
+}
+
+.site-footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding: var(--espaco-md);
+    text-align: center;
+    font-size: 0.8rem;
+    font-family: var(--fonte-mono);
+    color: #8b93a5;
+}
+
+/* ===== WhatsApp flutuante ===== */
+.whatsapp-float {
+    position: fixed;
+    bottom: var(--espaco-lg);
+    right: var(--espaco-lg);
+    width: 56px;
+    height: 56px;
+    background: var(--verde-aprovado);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 50;
+}
+
+    .whatsapp-float img {
+        width: 28px;
+        height: 28px;
+    }
+
+/* ===== Acessibilidade: reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    * {
+        transition: none !important;
+    }
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+    .site-nav {
+        display: none;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .curso-grid, .noticia-card {
+        grid-template-columns: 1fr;
+    }
+
+    .curso-cta {
+        position: static;
+    }
+
+    .site-footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rota-linha svg {
+        display: none;
+    }
+    /* versão mobile simplificada — refinar em LASDWAS-32 */
 }

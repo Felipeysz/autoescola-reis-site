@@ -100,6 +100,11 @@ p {
     margin-bottom: var(--espaco-md);
 }
 
+/* Palavra-chave em destaque dentro de títulos (ex: <span class="hero-destaque">CNH</span>) */
+.hero-destaque {
+    color: var(--sinaleira);
+}
+
 .skip-link {
     position: absolute;
     left: -9999px;
@@ -259,12 +264,54 @@ section {
         display: block;
     }
 
+        /* Necessário para o scale animado (GSAP) funcionar corretamente em elementos SVG */
+        .rota-linha svg circle,
+        .rota-linha svg text {
+            transform-box: fill-box;
+        }
+
 .rota-waypoint-label {
     font-family: var(--fonte-mono);
     font-weight: 600;
     font-size: 0.9rem;
     fill: var(--rota-azul-escura);
     text-anchor: middle;
+}
+
+/* ===== Faixa de confiança ===== */
+.confianca-faixa {
+    background: #fff;
+    border-top: 1px dashed var(--borda);
+    border-bottom: 1px dashed var(--borda);
+    padding: var(--espaco-lg) 0;
+}
+
+.confianca-lista {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: var(--espaco-xl);
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.confianca-item strong {
+    display: block;
+    font-family: var(--fonte-display);
+    font-size: 1.9rem;
+    line-height: 1;
+    color: var(--rota-azul-escura);
+    text-transform: uppercase;
+}
+
+.confianca-item span {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--cinza-pista);
 }
 
 /* ===== Cards de curso (badge de categoria) ===== */
@@ -295,6 +342,7 @@ section {
     height: 64px;
     background: var(--rota-azul);
     color: #fff;
+    border: 2px dashed rgba(255, 255, 255, 0.55);
     border-radius: var(--raio);
     display: flex;
     align-items: center;
@@ -302,6 +350,11 @@ section {
     font-family: var(--fonte-mono);
     font-weight: 600;
     font-size: 1.4rem;
+    transition: border-color 0.2s ease;
+}
+
+.curso-card:hover .curso-badge {
+    border-color: var(--sinaleira);
 }
 
 .curso-card-titulo {
@@ -326,6 +379,7 @@ section {
     height: 88px;
     background: var(--rota-azul);
     color: #fff;
+    border: 2px dashed rgba(255, 255, 255, 0.55);
     border-radius: var(--raio);
     display: flex;
     align-items: center;
@@ -595,7 +649,10 @@ section {
 
     * {
         transition: none !important;
+        animation: none !important;
     }
+    /* As animações via GSAP (animations.js) já checam prefers-reduced-motion
+       e não executam nesse caso — o conteúdo aparece direto, sem clip-path. */
 }
 
 /* ===== Responsivo ===== */
@@ -620,8 +677,19 @@ section {
         grid-template-columns: 1fr;
     }
 
-    .rota-linha svg {
-        display: none;
+    .confianca-lista {
+        gap: var(--espaco-lg);
     }
-    /* versão mobile simplificada — refinar em LASDWAS-32 */
+
+    /* Em vez de sumir com a linha (comportamento anterior), rola horizontalmente.
+       Redesenho vertical completo fica pra LASDWAS-32 (responsividade mobile). */
+    .rota-linha .container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: var(--espaco-sm);
+    }
+
+    .rota-linha svg {
+        min-width: 640px;
+    }
 }

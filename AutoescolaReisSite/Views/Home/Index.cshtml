@@ -7,7 +7,7 @@
 <section class="home-hero">
     <div class="container">
         <span class="cursos-eyebrow">Formação de condutores em Salvador — BA</span>
-        <h1>Sua CNH começa aqui</h1>
+        <h1>Sua <span class="hero-destaque">CNH</span> começa aqui</h1>
         <p class="home-hero-texto">
             Mais de 20 anos formando condutores. Primeira habilitação, adição ou mudança de
             categoria, renovação e curso de reciclagem — tudo com aulas teóricas 100% online e
@@ -33,6 +33,25 @@
                 @Html.Raw($"<text x=\"{x}\" y=\"95\" class=\"rota-waypoint-label\">{WebUtility.HtmlEncode(codigo)}</text>")
             }
         </svg>
+    </div>
+</section>
+
+<section class="confianca-faixa">
+    <div class="container">
+        <ul class="confianca-lista">
+            <li class="confianca-item">
+                <strong>20+ anos</strong>
+                <span>de experiência</span>
+            </li>
+            <li class="confianca-item">
+                <strong>DETRAN-BA</strong>
+                <span>centro credenciado</span>
+            </li>
+            <li class="confianca-item">
+                <strong>100% online</strong>
+                <span>aulas teóricas</span>
+            </li>
+        </ul>
     </div>
 </section>
 

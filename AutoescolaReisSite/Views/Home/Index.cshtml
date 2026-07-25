@@ -33,6 +33,13 @@
                 @Html.Raw($"<text x=\"{x}\" y=\"95\" class=\"rota-waypoint-label\">{WebUtility.HtmlEncode(codigo)}</text>")
             }
         </svg>
+
+        <p class="rota-waypoints-mobile" aria-hidden="true">
+            @foreach (var (codigo, _) in pontos)
+            {
+                <span>@codigo</span>
+            }
+        </p>
     </div>
 </section>
 

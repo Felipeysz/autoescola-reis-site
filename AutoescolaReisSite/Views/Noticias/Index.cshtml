@@ -1,0 +1,39 @@
+﻿@* Views/Noticias/Index.cshtml *@
+@using AutoescolaReisSite.Models
+@model List<NoticiaPost>
+@{
+    ViewData["Title"] = "Notícias";
+}
+
+<section class="noticias-hero">
+    <div class="container">
+        <h1>Notícias</h1>
+    </div>
+</section>
+
+<section class="noticias-lista">
+    <div class="container">
+        @foreach (var post in Model.OrderByDescending(p => p.DataPublicacao))
+        {
+            <a href="@Url.Action("Detalhes", "Noticias", new { slug = post.Slug })" class="noticia-card">
+                @if (!string.IsNullOrEmpty(post.ImagemUrl))
+                {
+                    <img src="@post.ImagemUrl" alt="@post.Titulo" class="noticia-card-imagem" />
+                }
+                else
+                {
+                    <div class="img-placeholder noticia-card-imagem" aria-label="Imagem reservada para @post.Titulo">
+                        <span>Imagem em breve</span>
+                    </div>
+                }
+                <div class="noticia-card-corpo">
+                    <h2>@post.Titulo</h2>
+                    <p>@post.ResumoCurta</p>
+                    <time datetime="@post.DataPublicacao.ToString("yyyy-MM-dd")">
+                        @post.DataPublicacao.ToString("d 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("pt-BR"))
+                    </time>
+                </div>
+            </a>
+        }
+    </div>
+</section>

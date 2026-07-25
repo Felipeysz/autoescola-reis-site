@@ -1,8 +1,52 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@* Views/Home/Index.cshtml *@
+@using System.Net
+@{
+    ViewData["Title"] = "Autoescola Reis | Carteira de Habilitação A, B, AB, D e E | Salvador - Bahia";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="home-hero">
+    <div class="container">
+        <span class="cursos-eyebrow">Formação de condutores em Salvador — BA</span>
+        <h1>Sua CNH começa aqui</h1>
+        <p class="home-hero-texto">
+            Mais de 20 anos formando condutores. Primeira habilitação, adição ou mudança de
+            categoria, renovação e curso de reciclagem — tudo com aulas teóricas 100% online e
+            pagamento facilitado.
+        </p>
+        <div class="home-hero-cta">
+            <a href="@Url.Action("Index", "Matriculas")" class="btn btn--primario">Matricule-se aqui</a>
+            <a href="https://wa.me/5571982600856" target="_blank" rel="noopener" class="btn btn--whatsapp">Falar no WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<section class="rota-linha">
+    <div class="container">
+        <svg viewBox="0 0 1000 120" role="img" aria-label="Trajeto das categorias de habilitação: A, AB, B, D, E">
+            <line x1="60" y1="60" x2="940" y2="60" stroke="#F4A63D" stroke-width="3" stroke-dasharray="10 10" />
+            @{
+                var pontos = new (string codigo, int x)[] { ("A", 60), ("AB", 290), ("B", 520), ("D", 750), ("E", 940) };
+            }
+            @foreach (var (codigo, x) in pontos)
+            {
+                <circle cx="@x" cy="60" r="9" fill="#123C69" stroke="#fff" stroke-width="3" />
+                @Html.Raw($"<text x=\"{x}\" y=\"95\" class=\"rota-waypoint-label\">{WebUtility.HtmlEncode(codigo)}</text>")
+            }
+        </svg>
+    </div>
+</section>
+
+<section class="home-cursos-preview">
+    <div class="container cursos-grid">
+        @foreach (var curso in AutoescolaReisSite.Data.CursosData.Todos.Take(6))
+        {
+            <a href="/@curso.Slug" class="curso-card">
+                <div class="curso-badge">@curso.Codigo</div>
+                <div>
+                    <p class="curso-card-titulo" style="font-weight:600;">@curso.Titulo</p>
+                    <p class="curso-card-subtitulo">@curso.Subtitulo</p>
+                </div>
+            </a>
+        }
+    </div>
+</section>

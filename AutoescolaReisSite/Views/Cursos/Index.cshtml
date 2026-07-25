@@ -1,0 +1,44 @@
+@* Views/Cursos/Index.cshtml *@
+@using AutoescolaReisSite.Data
+@{
+    ViewData["Title"] = "Nossos Cursos";
+}
+
+<section class="cursos-hero">
+    <div class="container">
+        <p class="cursos-eyebrow">Conheça</p>
+        <h1>Nossos Cursos</h1>
+        <p class="cursos-intro">
+            Oferecemos serviços de formação de condutores e treinamentos para aquisição da primeira
+            CNH nas categorias "A" e "B", para renovação de CNH, para adição ou mudança de categorias.
+            Além do curso de reciclagem obrigatório para motoristas infratores ou que tiveram a CNH suspensa.
+        </p>
+    </div>
+</section>
+
+<section class="cursos-grid-section">
+    <div class="container cursos-grid">
+        @foreach (var curso in CursosData.Todos)
+        {
+            <a href="/@curso.Slug" class="curso-card">
+                <div class="curso-badge">@curso.Codigo</div>
+                <div>
+                    <h2 class="curso-card-titulo">@curso.Titulo</h2>
+                    <p class="curso-card-subtitulo">@curso.Subtitulo</p>
+                </div>
+            </a>
+        }
+    </div>
+</section>
+
+<section class="cursos-cta">
+    <div class="container">
+        <ul class="curso-cta-tags">
+            <li>Aulas teóricas 100% online</li>
+            <li>Facilitamos o pagamento</li>
+        </ul>
+        <a href="@Url.Action("Index", "Matriculas")" class="btn btn--primario">
+            Matricule-se aqui
+        </a>
+    </div>
+</section>

@@ -1,0 +1,63 @@
+@* Views/Home/Sobre.cshtml *@
+@{
+    ViewData["Title"] = "Sobre Nós";
+}
+
+<section class="sobre-hero">
+    <div class="container">
+        <p class="cursos-eyebrow">Conheça nossa autoescola</p>
+        <h1>Há +20 anos, formando condutores exemplares.</h1>
+    </div>
+</section>
+
+<section class="sobre-conteudo">
+    <div class="container">
+        <p>
+            Com mais de 2 décadas de mercado, a Autoescola Reis ocupa hoje um lugar de destaque na
+            formação de condutores de automóveis e motocicletas na cidade de Salvador e região
+            metropolitana, com extrema seriedade e profissionalismo.
+        </p>
+        <p>
+            Contamos com uma equipe de profissionais altamente qualificados e credenciados pelo
+            DETRAN. Nossos instrutores passam por cursos de reciclagem periodicamente e dispomos
+            de uma frota de veículos atualizados para melhor atender clientes e alunos.
+        </p>
+        <p>
+            Oferecemos curso de reciclagem, auxiliamos nos processos de primeira habilitação (A e B),
+            processos de adição de categoria (AB) e mudança de categoria (D e E).
+        </p>
+
+        <div class="sobre-box">
+            <h2>Nossa Missão</h2>
+            <p>Formar Condutores com habilidades de transformar o cenário do trânsito em um ambiente seguro e humanizado.</p>
+        </div>
+
+        <div class="sobre-box">
+            <h2>Nossa Visão</h2>
+            <p>Ser referência na formação de Condutores, destacando-se no segmento pela oferta de serviços qualificados.</p>
+        </div>
+
+        <div class="sobre-box">
+            <h2>Nossos Valores</h2>
+            <ul>
+                <li>Integridade</li>
+                <li>Ética</li>
+                <li>Respeito</li>
+                <li>Comprometimento</li>
+                <li>Transparência</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="sobre-cta">
+    <div class="container">
+        <ul class="curso-cta-tags">
+            <li>Aulas teóricas 100% online</li>
+            <li>Facilitamos o pagamento</li>
+        </ul>
+        <a href="@Url.Action("Index", "Matriculas")" class="btn btn--primario">Matricule-se aqui</a>
+        <p class="curso-cta-whatsapp-label">Informações e Matrículas pelo WhatsApp</p>
+        <a href="https://wa.me/5571982600856" target="_blank" rel="noopener" class="btn btn--whatsapp">Clique Aqui</a>
+    </div>
+</section>

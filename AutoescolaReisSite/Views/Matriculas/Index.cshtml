@@ -1,0 +1,74 @@
+﻿@* Views/Matriculas/Index.cshtml *@
+@model AutoescolaReisSite.Models.MatriculaForm
+@{
+    ViewData["Title"] = "Matrículas";
+}
+
+<section class="matriculas-hero">
+    <div class="container">
+        <h1>Matricule-se</h1>
+        <p>Conheça nossas condições especiais de pagamento</p>
+        <p>
+            Entre em contato com nossa central de atendimento via WhatsApp ou preencha o formulário
+            abaixo e assim que possível um dos nossos consultores entrará em contato com informações
+            sobre o curso desejado e nossas condições de pagamento.
+        </p>
+
+        <p class="curso-cta-whatsapp-label">Informações e Matrículas pelo WhatsApp</p>
+        <a href="https://wa.me/5571982600856" target="_blank" rel="noopener" class="btn btn--whatsapp">
+            Clique Aqui
+        </a>
+    </div>
+</section>
+
+<section class="matriculas-form-section">
+    <div class="container">
+
+        @if (TempData["MatriculaEnviada"] != null)
+        {
+            <div class="alert alert--sucesso">
+                Recebemos sua solicitação! Em breve um consultor vai entrar em contato.
+            </div>
+        }
+
+        <p>ou preencha o formulário abaixo:</p>
+
+        <form asp-action="Index" asp-controller="Matriculas" method="post" class="matriculas-form">
+            <div class="form-group">
+                <label asp-for="Nome">Nome</label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="form-erro"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Telefone">Telefone / WhatsApp</label>
+                <input asp-for="Telefone" class="form-control" />
+                <span asp-validation-for="Telefone" class="form-erro"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="form-erro"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Servico">Selecione um Serviço</label>
+                <select asp-for="Servico" class="form-control">
+                    <option value="">Selecione um Serviço</option>
+                    @foreach (var servico in AutoescolaReisSite.Models.MatriculaForm.Servicos)
+                    {
+                        <option value="@servico">@servico</option>
+                    }
+                </select>
+                <span asp-validation-for="Servico" class="form-erro"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primario">Enviar Formulário</button>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

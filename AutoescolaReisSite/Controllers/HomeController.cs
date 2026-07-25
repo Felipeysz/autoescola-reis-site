@@ -1,24 +1,17 @@
-using System.Diagnostics;
+// Controllers/HomeController.cs
 using Microsoft.AspNetCore.Mvc;
-using AutoescolaReisSite.Models;
 
-namespace AutoescolaReisSite.Controllers;
-
-public class HomeController : Controller
+namespace AutoescolaReisSite.Controllers
 {
-    public IActionResult Index()
+    public class HomeController : Controller
     {
-        return View();
-    }
+        [Route("/")]
+        public IActionResult Index() => View();
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        [Route("sobre-nos")]
+        public IActionResult Sobre() => View();
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        [Route("politica-privacidade")]
+        public IActionResult Politica() => View();
     }
 }

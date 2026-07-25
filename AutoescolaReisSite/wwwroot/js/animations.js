@@ -110,6 +110,54 @@
             });
         }
 
+        // ===== Botão flutuante do WhatsApp — entrada + respiração sutil (LASDWAS-31) =====
+        var whatsappBtn = document.querySelector(".whatsapp-float");
+        if (whatsappBtn) {
+            gsap.fromTo(
+                whatsappBtn,
+                { scale: 0, opacity: 0 },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.5,
+                    delay: 1.1,
+                    ease: "back.out(1.7)",
+                    onComplete: function () {
+                        // Respiração contínua, bem sutil — chama atenção sem incomodar
+                        gsap.to(whatsappBtn, {
+                            scale: 1.06,
+                            duration: 1.4,
+                            ease: "sine.inOut",
+                            yoyo: true,
+                            repeat: -1
+                        });
+                    }
+                }
+            );
+
+            // Pausa a respiração enquanto o mouse está sobre o botão
+            whatsappBtn.addEventListener("mouseenter", function () {
+                gsap.killTweensOf(whatsappBtn);
+                gsap.to(whatsappBtn, { scale: 1.1, duration: 0.2, ease: "power1.out" });
+            });
+            whatsappBtn.addEventListener("mouseleave", function () {
+                gsap.to(whatsappBtn, {
+                    scale: 1,
+                    duration: 0.2,
+                    ease: "power1.out",
+                    onComplete: function () {
+                        gsap.to(whatsappBtn, {
+                            scale: 1.06,
+                            duration: 1.4,
+                            ease: "sine.inOut",
+                            yoyo: true,
+                            repeat: -1
+                        });
+                    }
+                });
+            });
+        }
+
         // ===== Timeline de etapas (página de curso) — stagger ao entrar na tela =====
         var etapas = document.querySelectorAll(".curso-box--etapas li");
         if (etapas.length && typeof ScrollTrigger !== "undefined") {

@@ -5,6 +5,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Autoescola Reis</title>
+    <meta name="description" content="@(ViewData["Description"] ?? "Autoescola Reis: formação de condutores em Salvador - BA há mais de 20 anos. Primeira habilitação A, B e AB, mudança de categoria D e E, curso de reciclagem.")" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Autoescola Reis" />
+    <meta property="og:title" content="@ViewData["Title"] - Autoescola Reis" />
+    <meta property="og:description" content="@(ViewData["Description"] ?? "Autoescola Reis: formação de condutores em Salvador - BA há mais de 20 anos.")" />
+    <meta property="og:image" content="@(Context.Request.Scheme)://@(Context.Request.Host)@(ViewData["OgImage"] ?? "/images/og-cover.jpg")" />
+    <meta property="og:url" content="@(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.Path)" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@ViewData["Title"] - Autoescola Reis" />
+    <meta name="twitter:description" content="@(ViewData["Description"] ?? "Autoescola Reis: formação de condutores em Salvador - BA há mais de 20 anos.")" />
+    <meta name="twitter:image" content="@(Context.Request.Scheme)://@(Context.Request.Host)@(ViewData["OgImage"] ?? "/images/og-cover.jpg")" />
+
     <link rel="icon" type="image/png" href="~/images/favicon.png" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>

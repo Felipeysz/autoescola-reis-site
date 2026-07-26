@@ -99,6 +99,17 @@
                 });
             }
 
+            // ----- Comparador de categorias -----
+            if (document.querySelectorAll(".comparador-item").length && typeof ScrollTrigger !== "undefined") {
+                ScrollTrigger.batch(".comparador-item", {
+                    start: "top 88%",
+                    once: true,
+                    onEnter: function (batch) {
+                        gsap.from(batch, { opacity: 0, y: 20, duration: 0.5, stagger: 0.08, ease: "power2.out" });
+                    }
+                });
+            }
+
             // ----- Cards de curso (Home) -----
             if (document.querySelectorAll(".curso-card").length && typeof ScrollTrigger !== "undefined") {
                 ScrollTrigger.batch(".curso-card", {
@@ -176,6 +187,17 @@
                     ].filter(Boolean),
                     { opacity: 0, y: 10, duration: 0.4, stagger: 0.08, ease: "power1.out" }
                 );
+            }
+
+            // ----- Comparador de categorias — stagger mais curto -----
+            if (document.querySelectorAll(".comparador-item").length && typeof ScrollTrigger !== "undefined") {
+                ScrollTrigger.batch(".comparador-item", {
+                    start: "top 92%",
+                    once: true,
+                    onEnter: function (batch) {
+                        gsap.from(batch, { opacity: 0, y: 10, duration: 0.35, stagger: 0.06, ease: "power1.out" });
+                    }
+                });
             }
 
             // ----- Cards de curso — stagger mais curto -----

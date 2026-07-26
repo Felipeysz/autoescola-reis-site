@@ -181,6 +181,14 @@ namespace AutoescolaReisSite.Data
             ImagemUrl = null
         };
 
+        public static readonly List<ComparadorOpcao> ComparadorCategorias = new()
+        {
+            new() { Pergunta = "Quero pilotar moto", Slug = "cnh-categoria-a", CodigoCurso = "A" },
+            new() { Pergunta = "Quero dirigir carro", Slug = "cnh-categoria-b", CodigoCurso = "B" },
+            new() { Pergunta = "Quero os dois — moto e carro", Slug = "cnh-categoria-ab", CodigoCurso = "AB" },
+            new() { Pergunta = "Já sou habilitado e quero mudar de categoria", Slug = "cnh-categoria-d", CodigoCurso = "D" }
+        };
+
         public static readonly List<CursoInfo> Todos = new()
         {
             CategoriaA, CategoriaB, CategoriaAB, AdicaoCategoria, CategoriaD, CategoriaE, Reciclagem

@@ -709,6 +709,17 @@ section {
         text-align: center;
     }
 
+.mapa-embed {
+    border-radius: var(--raio);
+    overflow: hidden;
+    border: 1px solid var(--borda);
+    margin-top: var(--espaco-lg);
+}
+
+    .mapa-embed iframe {
+        display: block;
+    }
+
 /* ===== Acessibilidade: reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
     html {

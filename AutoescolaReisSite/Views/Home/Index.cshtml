@@ -62,6 +62,23 @@
     </div>
 </section>
 
+<section class="comparador">
+    <div class="container">
+        <span class="cursos-eyebrow">Não sabe qual categoria escolher?</span>
+        <h2>Encontre o curso certo pra você</h2>
+
+        <div class="comparador-grid">
+            @foreach (var opcao in AutoescolaReisSite.Data.CursosData.ComparadorCategorias)
+            {
+                <a href="/@opcao.Slug" class="comparador-item">
+                    <div class="curso-badge">@opcao.CodigoCurso</div>
+                    <span>@opcao.Pergunta</span>
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
 <section class="home-cursos-preview">
     <div class="container cursos-grid">
         @foreach (var curso in AutoescolaReisSite.Data.CursosData.Todos.Take(6))

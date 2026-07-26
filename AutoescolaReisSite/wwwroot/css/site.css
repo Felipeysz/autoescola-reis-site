@@ -720,6 +720,30 @@ section {
         display: block;
     }
 
+.comparador-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--espaco-md);
+}
+
+.comparador-item {
+    display: flex;
+    align-items: center;
+    gap: var(--espaco-md);
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: var(--espaco-md) var(--espaco-lg);
+    font-weight: 600;
+    color: var(--asfalto);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+    .comparador-item:hover {
+        border-color: var(--sinaleira);
+        transform: translateY(-2px);
+    }
+
 /* ===== Acessibilidade: reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
     html {

@@ -676,6 +676,39 @@ section {
         height: 28px;
     }
 
+
+.btn--ligar {
+    background: transparent;
+    color: var(--rota-azul);
+    border: 2px solid var(--rota-azul);
+}
+
+    .btn--ligar:hover {
+        background: var(--rota-azul);
+        color: #fff;
+    }
+
+.curso-cta .btn--ligar {
+    color: #fff;
+    border-color: rgba(255,255,255,0.4);
+}
+
+    .curso-cta .btn--ligar:hover {
+        background: rgba(255,255,255,0.1);
+        border-color: #fff;
+    }
+
+.cta-grupo {
+    display: flex;
+    gap: var(--espaco-sm);
+    flex-wrap: wrap;
+}
+
+    .cta-grupo .btn {
+        flex: 1;
+        text-align: center;
+    }
+
 /* ===== Acessibilidade: reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
     html {

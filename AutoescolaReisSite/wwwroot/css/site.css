@@ -868,6 +868,37 @@ section {
 .field-validation-valid {
     display: none;
 }
+
+/* Loading state em botões */
+.btn:disabled,
+.btn--carregando {
+    opacity: 0.75;
+    cursor: not-allowed;
+    position: relative;
+    padding-right: 2.8rem;
+}
+
+    .btn--carregando::after {
+        content: "";
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        width: 14px;
+        height: 14px;
+        margin-top: -7px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: btn-spin 0.6s linear infinite;
+    }
+
+@keyframes btn-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
 /* ===== Acessibilidade: reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
     html {

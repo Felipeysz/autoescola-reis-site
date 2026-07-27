@@ -6,9 +6,11 @@ namespace AutoescolaReisSite.Models
     public class MatriculaForm
     {
         [Required(ErrorMessage = "Informe seu nome.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Informe seu nome completo (mínimo 3 letras).")]
         public string Nome { get; set; } = "";
 
         [Required(ErrorMessage = "Informe um telefone/WhatsApp para contato.")]
+        [RegularExpression(@"^\(?\d{2}\)?\s?9?\d{4}-?\d{4}$", ErrorMessage = "Informe um telefone válido, com DDD (ex: (71) 98260-0856).")]
         public string Telefone { get; set; } = "";
 
         [Required(ErrorMessage = "Informe seu email.")]

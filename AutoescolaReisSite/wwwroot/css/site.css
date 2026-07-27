@@ -853,6 +853,21 @@ section {
     font-weight: 600;
 }
 
+
+/* Validação de formulário */
+.input-validation-error {
+    border-color: #d9534f !important;
+    background-color: #fdf3f2;
+}
+
+    .input-validation-error:focus {
+        outline: 2px solid #d9534f;
+        outline-offset: 1px;
+    }
+
+.field-validation-valid {
+    display: none;
+}
 /* ===== Acessibilidade: reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
     html {

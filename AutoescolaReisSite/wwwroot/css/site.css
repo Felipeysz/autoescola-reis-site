@@ -794,6 +794,46 @@ section {
         margin: var(--espaco-md) auto 0;
     }
 
+
+
+/* Página de erro (404/500) */
+.erro-page {
+    padding: 96px 0;
+    text-align: center;
+}
+
+.erro-page-codigo {
+    display: block;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--sinaleira);
+    margin-bottom: 8px;
+}
+
+.erro-page-conteudo h1 {
+    color: var(--rota-azul-escura);
+    margin-bottom: 12px;
+}
+
+.erro-page-conteudo p {
+    max-width: 560px;
+    margin: 0 auto 32px;
+}
+
+.erro-page-cta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.erro-page-requestid {
+    margin-top: 32px;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
 /* ===== Acessibilidade: reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
     html {

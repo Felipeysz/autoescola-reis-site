@@ -8,8 +8,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/erro");
 }
+app.UseStatusCodePagesWithReExecute("/erro/{0}");
 app.UseRouting();
 
 app.UseAuthorization();

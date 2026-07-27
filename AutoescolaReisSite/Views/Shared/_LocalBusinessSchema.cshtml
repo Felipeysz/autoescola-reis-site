@@ -1,0 +1,41 @@
+﻿@* Views/Shared/_LocalBusinessSchema.cshtml *@
+@* JSON-LD schema.org/LocalBusiness (AutoSchool) — incluído na Home e em Sobre Nós *@
+@{
+    var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
+}
+<script type="application/ld+json">
+{
+    "@@context": "https://schema.org",
+    "@@type": "AutoSchool",
+    "name": "Autoescola Reis",
+    "alternateName": "Centro de Formações de Condutores Reis Ltda - ME",
+    "url": "@baseUrl/",
+    "logo": "@baseUrl/images/marca-autoescola-reis.png",
+    "image": "@baseUrl/images/og-cover.jpg",
+    "telephone": "+55-71-3450-7775",
+    "email": "contato@autoescolareis.com.br",
+    "address": {
+        "@@type": "PostalAddress",
+        "streetAddress": "Avenida Tancredo Neves, 274, Torre A, Térreo",
+        "addressLocality": "Salvador",
+        "addressRegion": "BA",
+        "postalCode": "41820-620",
+        "addressCountry": "BR"
+    },
+    "openingHoursSpecification": [
+        {
+            "@@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+        },
+        {
+            "@@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday"],
+            "opens": "08:00",
+            "closes": "12:00"
+        }
+    ],
+    "sameAs": []
+}
+</script>

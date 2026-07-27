@@ -3,6 +3,20 @@
 
 @{
     ViewData["Title"] = Model.Titulo;
+    ViewData["Description"] = Truncar(!string.IsNullOrEmpty(Model.TextoIntroducao) ? Model.TextoIntroducao : Model.Subtitulo, 155);
+    var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
+}
+
+@functions {
+    // Corta a descrição em até "max" caracteres sem quebrar palavra no meio, pra usar como meta description
+    private string Truncar(string texto, int max)
+    {
+        if (string.IsNullOrEmpty(texto) || texto.Length <= max) return texto;
+        var cortado = texto.Substring(0, max);
+        var ultimoEspaco = cortado.LastIndexOf(' ');
+        if (ultimoEspaco > 0) cortado = cortado.Substring(0, ultimoEspaco);
+        return cortado.TrimEnd('.', ',', ';', ' ') + "…";
+    }
 }
 
 <section class="curso-hero">
@@ -109,6 +123,19 @@
                 </a>
             </div>
         </aside>
-
     </div>
 </section>
+
+<script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "Course",
+        "name": "@Model.Titulo",
+        "description": "@ViewData["Description"]",
+        "provider": {
+            "@@type": "AutoSchool",
+            "name": "Autoescola Reis",
+            "sameAs": "@baseUrl/"
+        }
+    }
+</script>

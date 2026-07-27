@@ -1,6 +1,6 @@
 ﻿@* Views/Noticias/Index.cshtml *@
 @using AutoescolaReisSite.Models
-@model List<NoticiaPost>
+@model NoticiasIndexViewModel
 @{
     ViewData["Title"] = "Notícias";
     ViewData["Description"] = "Fique por dentro das últimas notícias sobre trânsito, CNH e habilitação, publicadas pela Autoescola Reis.";
@@ -14,7 +14,7 @@
 
 <section class="noticias-lista">
     <div class="container">
-        @foreach (var post in Model.OrderByDescending(p => p.DataPublicacao))
+        @foreach (var post in Model.Posts)
         {
             <a href="@Url.Action("Detalhes", "Noticias", new { slug = post.Slug })" class="noticia-card">
                 @if (!string.IsNullOrEmpty(post.ImagemUrl))
@@ -38,3 +38,28 @@
         }
     </div>
 </section>
+
+@if (Model.TotalPaginas > 1)
+{
+    <nav class="noticias-paginacao" aria-label="Paginação de notícias">
+        <div class="container noticias-paginacao-inner">
+            @if (Model.TemPaginaAnterior)
+            {
+                <a href="@Url.Action("Index", "Noticias", new { pagina = Model.PaginaAtual - 1 })" class="btn btn--primario">
+                    ← Mais recentes
+                </a>
+            }
+
+            <span class="noticias-paginacao-info">
+                Página @Model.PaginaAtual de @Model.TotalPaginas
+            </span>
+
+            @if (Model.TemProximaPagina)
+            {
+                <a href="@Url.Action("Index", "Noticias", new { pagina = Model.PaginaAtual + 1 })" class="btn btn--primario">
+                    Mais antigas →
+                </a>
+            }
+        </div>
+    </nav>
+}

@@ -834,6 +834,25 @@ section {
     color: #6b7280;
 }
 
+
+/* Paginação de Notícias */
+.noticias-paginacao {
+    padding: 32px 0 64px;
+}
+
+.noticias-paginacao-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.noticias-paginacao-info {
+    color: var(--rota-azul-escura);
+    font-weight: 600;
+}
+
 /* ===== Acessibilidade: reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
     html {

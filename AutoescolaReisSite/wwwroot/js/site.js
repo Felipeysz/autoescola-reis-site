@@ -1,20 +1,22 @@
-﻿// wwwroot/js/site.js
+﻿// Loading state no botão de envio do formulário de Matrículas
 document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.querySelector('.nav-toggle');
-    const nav = document.querySelector('.site-nav');
+    const form = document.querySelector('.matriculas-form');
+    if (!form) return;
 
-    if (toggle && nav) {
-        toggle.addEventListener('click', () => {
-            const aberto = nav.classList.toggle('site-nav--aberto');
-            toggle.setAttribute('aria-expanded', aberto ? 'true' : 'false');
-        });
+    const botao = form.querySelector('button[type="submit"]');
+    if (!botao) return;
 
-        // fecha o menu ao clicar em um link
-        nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('site-nav--aberto');
-                toggle.setAttribute('aria-expanded', 'false');
-            });
-        });
-    }
+    const textoOriginal = botao.textContent;
+
+    form.addEventListener('submit', () => {
+        // Se o jQuery Validate estiver carregado e o formulário for inválido,
+        // não faz nada — deixa a própria validação mostrar os erros normalmente
+        if (window.jQuery && typeof jQuery(form).valid === 'function' && !jQuery(form).valid()) {
+            return;
+        }
+
+        botao.disabled = true;
+        botao.classList.add('btn--carregando');
+        botao.textContent = 'Enviando...';
+    });
 });

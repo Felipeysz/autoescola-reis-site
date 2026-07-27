@@ -1,25 +1,26 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = Model.Titulo;
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<section class="erro-page">
+    <div class="container erro-page-conteudo">
+        <span class="erro-page-codigo">@Model.StatusCode</span>
+        <h1>@Model.Titulo</h1>
+        <p>@Model.Mensagem</p>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
+        <div class="erro-page-cta">
+            <a href="@Url.Action("Index", "Home")" class="btn btn--primario">Voltar para o início</a>
+            <a href="https://wa.me/5571982600856" target="_blank" rel="noopener" class="btn btn--whatsapp">
+                Falar no WhatsApp
+            </a>
+        </div>
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+        @if (Model.ShowRequestId)
+        {
+            <p class="erro-page-requestid">
+                Código de referência: <code>@Model.RequestId</code>
+            </p>
+        }
+    </div>
+</section>

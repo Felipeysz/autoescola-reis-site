@@ -23,5 +23,7 @@ namespace AutoescolaReisSite.Crm.Models
         public PipelineStage Status { get; set; } = PipelineStage.Novo;
 
         public DateTime DataCriacao { get; set; } = DateTime.UtcNow;
+
+        public DateTime DataUltimaInteracao { get; set; }
     }
 }

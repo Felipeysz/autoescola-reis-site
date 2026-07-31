@@ -38,6 +38,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       Crm__ApiUrl: "http://crm-api:8080"
+      Crm__ApiKey: "${CRM_API_KEY}"
     ports:
       - "5237:8080"
 

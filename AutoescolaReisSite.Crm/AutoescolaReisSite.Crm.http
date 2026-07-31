@@ -1,0 +1,6 @@
+@AutoescolaReisSite.Crm_HostAddress = http://localhost:5242
+
+GET {{AutoescolaReisSite.Crm_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

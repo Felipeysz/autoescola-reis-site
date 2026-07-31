@@ -1,4 +1,25 @@
+# Build outputs
 bin/
 obj/
+
+# Visual Studio / VS Code
 .vs/
+.vscode/
 *.user
+*.suo
+
+# Variáveis de ambiente / segredos (nunca versionar)
+.env
+.env.*
+!.env.example
+
+# Configurações de ambiente específicas (se algum dia usarmos)
+appsettings.Development.json
+appsettings.Production.json
+
+# Logs
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

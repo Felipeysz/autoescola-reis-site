@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: autoescola-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  crm-api:
+    build:
+      context: .
+      dockerfile: AutoescolaReisSite.Crm/Dockerfile
+    container_name: autoescola-crm-api
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__CrmDb: "Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+    ports:
+      - "5242:8080"
+
+  # n8n: reservado pra LASDWAS-58 — descomentar quando for configurar de fato
+  # n8n:
+  #   image: n8nio/n8n:latest
+  #   container_name: autoescola-n8n
+  #   restart: unless-stopped
+  #   ports:
+  #     - "5678:5678"
+  #   depends_on:
+  #     - postgres
+
+volumes:
+  postgres_data:

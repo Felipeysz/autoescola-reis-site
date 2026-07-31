@@ -1,0 +1,20 @@
+# Build outputs (o container gera o próprio, isolado do Windows)
+**/bin/
+**/obj/
+
+# Editores
+**/.vs/
+**/.vscode/
+
+# Git
+.git/
+.gitignore
+
+# Segredos — nunca devem ir pra dentro da imagem
+.env
+.env.*
+!.env.example
+
+# Documentação/arquivos que não precisam estar na imagem
+*.md
+README*

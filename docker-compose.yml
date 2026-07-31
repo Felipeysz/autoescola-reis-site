@@ -26,6 +26,20 @@ services:
     ports:
       - "5242:8080"
 
+  site:
+    build:
+      context: .
+      dockerfile: AutoescolaReisSite/Dockerfile
+    container_name: autoescola-site
+    restart: unless-stopped
+    depends_on:
+      - crm-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Crm__ApiUrl: "http://crm-api:8080"
+    ports:
+      - "5237:8080"
+
   # n8n: reservado pra LASDWAS-58 — descomentar quando for configurar de fato
   # n8n:
   #   image: n8nio/n8n:latest

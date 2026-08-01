@@ -1,5 +1,6 @@
 using AutoescolaReisSite.Crm.Data;
 using AutoescolaReisSite.Crm.Middleware;
+using AutoescolaReisSite.Crm.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,8 @@ builder.Services.AddControllersWithViews();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<IAtendimentoBot, AtendimentoBotEcoStub>();
 
 builder.Services.AddDbContext<CrmDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("CrmDb")));

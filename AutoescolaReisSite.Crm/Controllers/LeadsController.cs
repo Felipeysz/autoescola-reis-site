@@ -1,15 +1,14 @@
 ﻿// Controllers/LeadsController.cs
 using AutoescolaReisSite.Crm.Data;
-using AutoescolaReisSite.Crm.Dtos;
 using AutoescolaReisSite.Crm.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoescolaReisSite.Crm.Controllers
 {
-    [ApiController]
-    [Route("leads")]
-    public class LeadsController : ControllerBase
+    [Authorize]
+    public class LeadsController : Controller
     {
         private readonly CrmDbContext _db;
 
@@ -18,76 +17,37 @@ namespace AutoescolaReisSite.Crm.Controllers
             _db = db;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Criar([FromBody] CriarLeadRequest request)
+        public async Task<IActionResult> Index(PipelineStage? status)
         {
-            if (!ModelState.IsValid)
-            {
-                return ValidationProblem(ModelState);
-            }
+            var todos = await _db.Leads.ToListAsync();
 
-            if (!Enum.TryParse<OrigemLead>(request.Origem, ignoreCase: true, out var origem))
-            {
-                origem = OrigemLead.Site;
-            }
+            var leads = status.HasValue
+                ? todos.Where(l => l.Status == status.Value).ToList()
+                : todos;
 
-            var telefoneNormalizado = NormalizarTelefone(request.Telefone);
+            leads = leads.OrderByDescending(l => l.DataCriacao).ToList();
 
-            var leadExistente = await _db.Leads
-                .FirstOrDefaultAsync(l => l.Telefone == telefoneNormalizado);
+            ViewData["FiltroAtual"] = status;
+            ViewData["Total"] = todos.Count;
+            ViewData["Contagens"] = todos.GroupBy(l => l.Status).ToDictionary(g => g.Key, g => g.Count());
 
-            if (leadExistente is not null)
-            {
-                // Atualiza o registro existente em vez de criar um novo
-                leadExistente.Nome = request.Nome;
-                leadExistente.Email = request.Email;
-                leadExistente.ServicoDesejado = request.ServicoDesejado;
-                leadExistente.DataUltimaInteracao = DateTime.UtcNow;
-                // Não sobrescreve Status nem Origem — mantém o estágio do pipeline
-                // em que o lead já estava (ex: não volta um lead "Em contato" pra "Novo")
-
-                await _db.SaveChangesAsync();
-
-                return Ok(leadExistente);
-            }
-
-            var lead = new Lead
-            {
-                Nome = request.Nome,
-                Telefone = telefoneNormalizado,
-                Email = request.Email,
-                ServicoDesejado = request.ServicoDesejado,
-                Origem = origem,
-                Status = PipelineStage.Novo,
-                DataCriacao = DateTime.UtcNow,
-                DataUltimaInteracao = DateTime.UtcNow
-            };
-
-            _db.Leads.Add(lead);
-            await _db.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(ObterPorId), new { id = lead.Id }, lead);
+            return View(leads);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> ObterPorId(int id)
+        [HttpPost]
+        public async Task<IActionResult> AtualizarStatus(int id, PipelineStage novoStatus)
         {
             var lead = await _db.Leads.FindAsync(id);
-            return lead is null ? NotFound() : Ok(lead);
-        }
 
-        private static string NormalizarTelefone(string telefone)
-        {
-            // Remove tudo que não for dígito
-            var digitos = new string(telefone.Where(char.IsDigit).ToArray());
-
-            // Garante formato E.164 (+55...) — ajuste conforme os dados que já existem no banco
-            if (!digitos.StartsWith("55"))
+            if (lead is null)
             {
-                digitos = "55" + digitos;
+                return NotFound();
             }
 
-            return "+" + digitos;
+            lead.Status = novoStatus;
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }

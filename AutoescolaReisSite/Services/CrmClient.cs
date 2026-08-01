@@ -19,7 +19,7 @@ namespace AutoescolaReisSite.Services
             try
             {
                 var client = _httpClientFactory.CreateClient("CrmApi");
-                var response = await client.PostAsJsonAsync("leads", lead);
+                var response = await client.PostAsJsonAsync("api/leads", lead);
 
                 if (!response.IsSuccessStatusCode)
                 {

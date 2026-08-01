@@ -13,8 +13,9 @@ namespace AutoescolaReisSite.Crm.Middleware
 
         public async Task InvokeAsync(HttpContext context, IConfiguration configuration)
         {
-            // /health continua público, sem exigir API key
-            if (context.Request.Path.StartsWithSegments("/health"))
+            // Só as rotas de integração entre sistemas exigem API key.
+            // O dashboard (páginas HTML) usa login por cookie, não API key.
+            if (!context.Request.Path.StartsWithSegments("/api"))
             {
                 await _next(context);
                 return;

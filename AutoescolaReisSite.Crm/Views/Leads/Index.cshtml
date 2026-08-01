@@ -1,0 +1,90 @@
+﻿@model List<Lead>
+@{
+    ViewData["Title"] = "Leads";
+    var filtroAtual = ViewData["FiltroAtual"] as PipelineStage?;
+    var contagens = ViewData["Contagens"] as Dictionary<PipelineStage, int>;
+    var stages = Enum.GetValues<PipelineStage>();
+}
+
+<div class="faixa"></div>
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="marca">
+            <span class="marca-eyebrow">Painel interno</span>
+            <h1>CRM — Autoescola Reis</h1>
+        </div>
+        <form asp-controller="Conta" asp-action="Logout" method="post">
+            <button type="submit" class="btn-sair">Sair</button>
+        </form>
+    </div>
+</header>
+
+<div class="container">
+    <nav class="leads-tabs">
+        <a href="@Url.Action("Index")" class="@(filtroAtual == null ? "ativo" : "")">
+            Todos <span class="contagem">@ViewData["Total"]</span>
+        </a>
+        @foreach (var stage in stages)
+        {
+            var qtd = (contagens != null && contagens.TryGetValue(stage, out var c)) ? c : 0;
+            <a href="@Url.Action("Index", new { status = stage })" class="@(filtroAtual == stage ? "ativo" : "")">
+                @stage <span class="contagem">@qtd</span>
+            </a>
+        }
+    </nav>
+
+    @if (!Model.Any())
+    {
+        <div class="vazio">
+            <div class="faixa"></div>
+            <p>Nenhum lead por aqui ainda. Assim que alguém preencher o formulário de Matrículas ou conversar no WhatsApp, aparece aqui.</p>
+        </div>
+    }
+    else
+    {
+        <div class="leads-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Serviço</th>
+                        <th>Origem</th>
+                        <th>Status</th>
+                        <th>Recebido em</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var i = 0;
+                    }
+                    @foreach (var lead in Model)
+                    {
+                        <tr style="animation-delay: @(i * 35)ms">
+                            <td>@lead.Nome</td>
+                            <td class="mono">@lead.Telefone</td>
+                            <td>@(lead.Email ?? "—")</td>
+                            <td>@lead.ServicoDesejado</td>
+                            <td>@lead.Origem</td>
+                            <td>
+                                <form asp-action="AtualizarStatus" method="post">
+                                    <input type="hidden" name="id" value="@lead.Id" />
+                                    <select name="novoStatus" class="status-select status-@lead.Status.ToString().ToLowerInvariant()" onchange="this.form.submit()">
+                                        @foreach (var stage in stages)
+                                        {
+                                            <option value="@stage" selected="@(lead.Status == stage)">@stage</option>
+                                        }
+                                    </select>
+                                </form>
+                            </td>
+                            <td class="mono">@lead.DataCriacao.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

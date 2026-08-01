@@ -24,6 +24,8 @@ services:
         ASPNETCORE_ENVIRONMENT: Development
         ConnectionStrings__CrmDb: "Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
         Crm__ApiKey: "${CRM_API_KEY}"
+        Crm__AdminEmail: "${ADMIN_EMAIL}"
+        Crm__AdminPassword: "${ADMIN_PASSWORD}"
       ports:
         - "5242:8080"
 

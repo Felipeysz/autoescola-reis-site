@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IAtendimentoBot, AtendimentoBotOpenAI>();
+builder.Services.AddHostedService<LeadExpurgoBackgroundService>();
 
 builder.Services.AddDbContext<CrmDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("CrmDb")));

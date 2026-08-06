@@ -1,0 +1,32 @@
+﻿@model AutoescolaReisSite.Crm.Models.ConfiguracaoRetencao
+
+@{
+    ViewData["Title"] = "Configuração — Retenção de Leads";
+}
+
+<div class="container">
+    <div class="card-conteudo">
+        <h1>Retenção de Leads (LGPD)</h1>
+
+        @if (TempData["Mensagem"] is not null)
+        {
+            <p class="mensagem-sucesso">@TempData["Mensagem"]</p>
+        }
+
+        <p class="descricao">
+            Leads com status "Perdido" sem interação há mais do que o prazo abaixo
+            serão excluídos automaticamente pelo sistema.
+        </p>
+
+        <form method="post" asp-action="Retencao">
+            <label for="prazoDiasLeadPerdido">Prazo (em dias)</label>
+            <input type="number" id="prazoDiasLeadPerdido" name="prazoDiasLeadPerdido"
+                   value="@Model.PrazoDiasLeadPerdido" min="1" max="3650" required />
+            <span asp-validation-for="@Model.PrazoDiasLeadPerdido"></span>
+
+            <button type="submit" class="btn-primario">Salvar</button>
+        </form>
+
+        <p class="rodape">Última atualização: @Model.AtualizadoEm.ToString("dd/MM/yyyy HH:mm") UTC</p>
+    </div>
+</div>

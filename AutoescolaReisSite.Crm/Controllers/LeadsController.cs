@@ -45,6 +45,7 @@ namespace AutoescolaReisSite.Crm.Controllers
             }
 
             lead.Status = novoStatus;
+            lead.DataUltimaInteracao = DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
             return RedirectToAction("Index");

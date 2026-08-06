@@ -10,6 +10,8 @@ namespace AutoescolaReisSite.Crm.Data
 
         public DbSet<Lead> Leads => Set<Lead>();
         public DbSet<Usuario> Usuarios => Set<Usuario>();
+        public DbSet<ConfiguracaoRetencao> ConfiguracoesRetencao => Set<ConfiguracaoRetencao>();
+        public DbSet<LeadExpurgoLog> LeadExpurgoLogs => Set<LeadExpurgoLog>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

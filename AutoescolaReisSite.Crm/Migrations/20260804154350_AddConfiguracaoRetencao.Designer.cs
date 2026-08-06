@@ -3,6 +3,7 @@ using System;
 using AutoescolaReisSite.Crm.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoescolaReisSite.Crm.Migrations
 {
     [DbContext(typeof(CrmDbContext))]
-    partial class CrmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260804154350_AddConfiguracaoRetencao")]
+    partial class AddConfiguracaoRetencao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,39 +86,6 @@ namespace AutoescolaReisSite.Crm.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Leads");
-                });
-
-            modelBuilder.Entity("AutoescolaReisSite.Crm.Models.LeadExpurgoLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DataUltimaInteracaoNoMomento")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("ExcluidoEm")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("LeadIdOriginal")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Motivo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("StatusNoMomento")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TelefoneParcial")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LeadExpurgoLogs");
                 });
 
             modelBuilder.Entity("AutoescolaReisSite.Crm.Models.Usuario", b =>

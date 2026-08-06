@@ -1,0 +1,51 @@
+﻿@model List<AutoescolaReisSite.Crm.Models.LeadExpurgoLog>
+
+@{
+    ViewData["Title"] = "Log de Exclusão de Leads";
+}
+
+<div class="container">
+    <h1>Log de Exclusão de Leads (LGPD)</h1>
+    <p class="descricao">
+        Registro de leads excluídos automaticamente por retenção expirada.
+        Nenhum dado pessoal completo é mantido aqui — apenas o necessário para auditoria.
+    </p>
+
+    <div class="leads-card">
+        @if (Model.Count == 0)
+        {
+            <div class="vazio">
+                <div class="faixa"></div>
+                <p>Nenhuma exclusão registrada ainda.</p>
+            </div>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID original</th>
+                        <th>Telefone (parcial)</th>
+                        <th>Status no momento</th>
+                        <th>Última interação antes da exclusão</th>
+                        <th>Excluído em</th>
+                        <th>Motivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var log in Model)
+                    {
+                        <tr>
+                            <td class="mono">@log.LeadIdOriginal</td>
+                            <td class="mono">@log.TelefoneParcial</td>
+                            <td>@log.StatusNoMomento</td>
+                            <td class="mono">@log.DataUltimaInteracaoNoMomento.ToString("dd/MM/yyyy")</td>
+                            <td class="mono">@log.ExcluidoEm.ToString("dd/MM/yyyy HH:mm") UTC</td>
+                            <td>@log.Motivo</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
